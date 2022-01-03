@@ -17,17 +17,25 @@ function add_f
         fi
     done
 
+    feature_count=$(cat .pmd | jq '.features | length')
 
-    cat .pmd | jq '.features |= . + [                                                                                                                                                                         98% █ ─╯
+    read -p "Type in a shorthand code for this feature, leave it blank to set it as default [F$feature_count] : " shd_key
+    if [[ $shd_key == "" ]]; then
+    shd_key=F$feature_count
+    fi
+
+    json_file=$(jq '.features += [
     {
         "name": "'$f_name'",
-        "short hand": "'$short_h'",
-        "parrent": "'${PWD%/*} | rev | cut -d'/' -f-1 | rev'",
-        "summery": "'$feature_sum"
-        }
-    ]'
+        "short hand": "'$shd_key'",
+        "parrent": "'$parret_f'",
+        "summery": "'$feature_sum'"
+    }
+    ]' $2)
 
-    echo $all_projs
+    echo $json_file
+    echo $json_file > $2
+    
     mkdir $fileloc/src/$1
     touch $fileloc/docs/$1.md
 
