@@ -1,0 +1,86 @@
+
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+
+char returnvals[40000];
+
+char* check_if_exists()
+{
+    char* pwd = strtok(getenv("PWD"), "/"); // getenv runs unix command pwd and saves output to pwd var. strtok breaks the string after every /. #
+  char r[90000];     // *** optamise these vars
+  char cpwd[90000]; 
+  static char returnval[900000];
+    FILE* file;
+    
+    while(pwd != NULL) // loop until pwd is empty *** this seems dangrous
+    {
+      sprintf(r,"/%s",pwd);     // string formating: adding / to define root
+    strcat(cpwd,r);           // string formating: concatingating pwd value from prevous loop to new var.
+    snprintf(returnval, sizeof(returnval),"%s/.pmt/",cpwd); // string formating: attaches /.pmt/ after every etteration to check wether dotfile exist in diroctory. 
+        printf("::: %s\n", cpwd);
+        
+        if (file = fopen(returnval, "r")) {
+          fclose(file);
+          return returnval;
+          } 
+          else {
+            return "False";
+            }
+      pwd = strtok(NULL, "/");
+    }
+}
+
+int init()
+{
+  const char* check_if_exist = check_if_exists();
+
+
+  printf("'%s'\n", check_if_exist);
+
+  if(strcmp(check_if_exist,"False")==0)
+  {
+    printf("Creating Files...\n");
+    FILE *config;
+    char conf_content[400];
+
+    mkdir("src", S_IRWXU);
+    mkdir("docs", S_IRWXU);
+    mkdir("bin", S_IRWXU);
+    mkdir("test", S_IRWXU);
+    mkdir("lib", S_IRWXU);
+
+    mkdir("bin/main", S_IRWXU);
+
+    config = fopen(".config", "w");
+    fprintf(config, "This is testing for fprintf...\n");
+   fputs("This is testing for fputs...\n", config);
+   fclose(config); 
+  }
+}
+
+int add_feature(char feature_NAME)
+{
+  mkdir("feature_NAME", S_IRWXU);
+  return 0;
+}
+
+int main(int argc, char **argv) // main function takes in arguments
+{
+  for (int i = 0; i < argc; i++) // loop to check if init is an argument 
+  {
+    if (strcmp(argv[i], "init") == 0)
+    {
+      init();
+    }
+    else if (strcmp(argv[i], "test") == 0)
+    {
+      const char* check_if_exist = check_if_exists();
+      printf("Project allredy initiated at '%s'!, Aboard.\n", check_if_exist);
+    }
+    
+  }
+  return 0;
+}

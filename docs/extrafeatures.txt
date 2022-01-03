@@ -1,0 +1,34 @@
+if (argv[i+1] != NULL)
+      {
+        char new_prj;
+        printf("Would you like to create a new project called %s? [Y/n] ", argv[i+1]);
+        new_prj = getchar();
+        if (new_prj == 'y' || new_prj == 'Y')
+        {
+          mkdir(argv[i+1], S_IRWXU);
+        }
+      }
+
+
+int pmt_add_log()
+{
+  char *pwd;
+  pwd = strtok(getenv("PWD"), "/");
+  char cpwd[200];
+  char r[200];
+  char s[400];
+
+  while(pwd != NULL)
+	{
+    sprintf(r,"/%s",pwd);
+    strcat(cpwd,r);
+    sprintf(s,"%s/.pmt",cpwd);
+    printf("Searching %s\n", s);
+
+    if (file_exists(s))
+    {      
+      printf(".pmt file found at %s.\n", s);
+      }
+      pwd = strtok(NULL, "/");
+	}
+}
