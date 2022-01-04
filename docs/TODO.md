@@ -3,18 +3,15 @@
 ## Must (up to 10% for each top level feature)
 
 [x] Be able to create basic file structure for project
-[/] Abort if requested project/feature name already exists under 'root' folder.  Here 'root' does not mean the / root of the file system, but the folder from which the program  is run.
+[x] Abort if requested project/feature name already exists under 'root' folder.  Here 'root' does not mean the / root of the file system, but the folder from which the program  is run.
     [x] Requires checking existing file system for matching name
     [x] Requires using branching (if) to exit program if necessary
-<<<<<<< HEAD
-[ ] Initialise git repository
-    [ ] Should set up CSGitLab project etc.
-=======
 [x] Initialise git repository
     [x] Should set up CSGitLab project etc.
->>>>>>> 695fe02 (uploading all before my computer gives up)
-[ ] Feature management
-    [ ] Must implement a method of having a shorthand code for feature e.g. F1, F2.1..., stored in a file.
+[x] Initialise git repository
+    [x] Should set up CSGitLab project etc.
+[x] Feature management
+    [x] Must implement a method of having a shorthand code for feature e.g. F1, F2.1..., stored in a file.
     [ ] Must implement lookup to facilitate getting path from shorthand code
     [ ] Should include setting up git branch as appropriate
 

@@ -39,7 +39,19 @@ function add_f
     mkdir $fileloc/src/$1
     touch $fileloc/docs/$1.md
 
-    echo "Adding $f_name to $fileloc"
+    echo "Added $f_name to $fileloc."
+
+    git_repo=$(cat .pmd | jq '.features | length')
+    if [[ git_repo != "n" ]]; then
+    while true; do
+    read -p "Would you like to creat a new branch for $f_name? [Y/n]: " new_f_branch
+    case $new_f_branch in
+        [Yy]* ) git checkout -b $f_name; break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer Yes or No using [Y/n].";;
+        esac
+    done
+    fi
 }
 
 function mv_f 
