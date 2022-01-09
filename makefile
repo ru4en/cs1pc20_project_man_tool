@@ -4,6 +4,7 @@ exe: #Compile and add to main bin directory
 	gcc -o bin/pm src/main.c -O2
 
 sys: # copy to systems bin folder (requires sudo)
+	sudo apt install jq
 	cp bin/pm /usr/bin/pm
 	mkdir /lib/pm
 	cp src/feature.sh /lib/pm/feature

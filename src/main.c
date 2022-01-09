@@ -70,10 +70,10 @@ int main(int argc, char ** argv) // main function takes in arguments
       return 0;
     } else // exit the program and print out an error msg
     {
-      printf("%s Existing project found in parrent diroctory %s.\n", ERROR, df_location);
+      printf("%s Existing project found in %s.\n", ERROR, df_location);
       return 1;
     }
-  } else if (strcmp(argv[1], "feature") == 0) {
+  } else if ((strcmp(argv[1], "feature") == 0) & (argv[2] != NULL)) {
 
     if (strcmp(df_location, "Not Found") == 0) 
     {
@@ -86,23 +86,20 @@ int main(int argc, char ** argv) // main function takes in arguments
       sprintf(ls_f, "bash /lib/pm/feature ls_f %s", df_location);
       int init_status = system(ls_f);
       return 0;
-    } 
-
-    if (argc <= 3)
-    {
-      printf("%s Feature name not stated... \n\n %s", ERROR , help());
-      return 1;
-    }
-
-    if (argv[2] == NULL)
-    {
-      printf("%s Not enough arguments passed for features, Choose from add, mv and rm... \n\n %s", ERROR, help());
-    } else if (strcmp(argv[2], "add") == 0) {
+    } else if ((strcmp(argv[2], "add") == 0) & (argv[3] != NULL)) {
       char add_f[256];
       sprintf(add_f, "bash /lib/pm/feature add_f %s %s", argv[3], df_location);
       int init_status = system(add_f);
     } else if (strcmp(argv[2], "mv") == 0) {
-      printf("move Feature: %s\n", argv[3]);
+      char mv_f[256];
+      sprintf(mv_f, "bash /lib/pm/feature mv_f %s", df_location);
+      int init_status = system(mv_f);
+      return 0;
+    } else if (strcmp(argv[2], "rename") == 0) {
+      char rename_f[256];
+      sprintf(rename_f, "bash /lib/pm/feature rename_f %s", df_location);
+      int init_status = system(rename_f);
+      return 0;
     } else {
       printf("%s Unknowned option '%s' for feature. add, mv and rm are the only options you can use... \n\n %s", ERROR, argv[2], help());
     } 

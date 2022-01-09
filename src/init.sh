@@ -30,10 +30,10 @@ function create_dotfile
   ],
   "features": [
     {
-      "id": 1,
+      "id": 0,
       "name": "main",
       "short hand": "main",
-      "src location": "'$fileloc/src/main'",
+      "src location": "src/main",
       "summery": "This is the main diroctory"
     }
   ],
@@ -76,16 +76,17 @@ function init
         fi
     done
 
-    dirs="src docs bin tests lib"
+    dirs="src docs bin tests lib src/main"
     for dir in $dirs;do
         echo "Creating $dir directory..."
         mkdir $dir
     done
 
-    mkdir $fileloc/src/main
-
-    touch docs/main.md
-    touch README.md
+    files="docs/main.md README.md"
+    for file in $files;do
+        echo "Creating $file file..."
+        touch $file
+    done
     
     create_dotfile -n $project_name -a $USER -g $gitR -l $(pwd)
 }
