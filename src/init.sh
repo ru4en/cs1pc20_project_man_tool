@@ -1,6 +1,8 @@
 #!/bin/bash
 ERROR="\033[1;31m ERROR:\033[0m"
 WARNNING="\033[1;33m WARRNING:\033[0m"
+DEBUG="\033[44m ERROR:\033[0m"
+
 
 function create_dotfile
 {
@@ -28,14 +30,16 @@ function create_dotfile
   ],
   "features": [
     {
+      "id": 1,
       "name": "main",
       "short hand": "main",
-      "parrent": "src",
+      "src location": "'$fileloc/src/main'",
       "summery": "This is the main diroctory"
     }
   ],
   "tests": [
     {
+      "id": 1,
       "name": "test1",
       "short hand": "T1",
       "summery": "First test",
@@ -78,7 +82,7 @@ function init
         mkdir $dir
     done
 
-    mkdir src/main
+    mkdir $fileloc/src/main
 
     touch docs/main.md
     touch README.md

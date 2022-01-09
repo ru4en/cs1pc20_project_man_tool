@@ -81,10 +81,17 @@ int main(int argc, char ** argv) // main function takes in arguments
       return 1;
     }
 
+    if (strcmp(argv[2], "ls") == 0) {
+      char ls_f[256];
+      sprintf(ls_f, "bash /lib/pm/feature ls_f %s", df_location);
+      int init_status = system(ls_f);
+      return 0;
+    } 
+
     if (argc <= 3)
     {
       printf("%s Feature name not stated... \n\n %s", ERROR , help());
-      return 0;
+      return 1;
     }
 
     if (argv[2] == NULL)

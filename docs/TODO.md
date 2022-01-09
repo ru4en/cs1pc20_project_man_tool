@@ -12,8 +12,8 @@
     [x] Should set up CSGitLab project etc.
 [x] Feature management
     [x] Must implement a method of having a shorthand code for feature e.g. F1, F2.1..., stored in a file.
-    [ ] Must implement lookup to facilitate getting path from shorthand code
-    [ ] Should include setting up git branch as appropriate
+    [x] Must implement lookup to facilitate getting path from shorthand code
+    [x] Should include setting up git branch as appropriate
 
 ## Should (up to 10% for each top level feature)
 

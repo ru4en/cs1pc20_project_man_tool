@@ -1,0 +1,10 @@
+@startuml
+ x -> bin
+ docs -> f1231a.md
+ docs -> f1231as.md
+ docs ->  f1231awdfwf.md
+ docs ->  f1231.md
+ docs ->  f123.md
+ docs ->  main.md
+tree -> pl.png
+@enduml

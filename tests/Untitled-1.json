@@ -1,0 +1,27 @@
+{
+  "Project Name": "'$project_name'",
+  "Author(s)": [
+    "'$author'"
+  ],
+  "Git Repo": "'$GITR'",
+  "File Root": "'$fileloc'",
+  "users": [
+    "'$author'"
+  ],
+  "features": [
+    {
+      "name": "main",
+      "short hand": "M",
+      "summery": "This is the main diroctory"
+    }
+  ],
+  "tests": [
+    {
+      "name": "test1",
+      "short hand": "M",
+      "summery": "First test",
+      "result": "logic not working",
+      "pass fail": false
+    }
+  ]
+}
