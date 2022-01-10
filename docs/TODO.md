@@ -17,7 +17,7 @@
 
 ## Should (up to 10% for each top level feature)
 
-[ ] Include mechanism for renaming features (subtrees)
+[x] Include mechanism for renaming features (subtrees)
 [x] Include mechanism for moving feature to new location in tree (folder hierarchy)
 [ ] Output tree diagram - PBS or WBS (svg, using plantuml)
     [ ] Requires tree walk (iterative or recursive)

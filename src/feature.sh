@@ -5,7 +5,7 @@ DEBUG="\033[0;102m \033[1;30m DEBUG:\033[0m"
 
 function add_f
 {
-    f_name=$1    
+    f_name=$1
     fileloc="${2%%.*}"
     src_location=src/$1
 
@@ -20,8 +20,7 @@ function add_f
             }
         fi
     done
-
-    f_id=$(cat .pmd | jq '.features | length')
+    f_id=$(jq '.features | length' $2)
 
     read -p "Type in a shorthand code for this feature, leave it blank to set it as default [F$f_id] : " shd_key
     if [[ $shd_key == "" ]]; then
@@ -67,7 +66,7 @@ function ls_f
     echo -e "\n\033[1;34mID\\t\\tShort Hand\\t\\tFeature Name\\t\\tFile Location \033[m"
     feature_count=$(expr $(cat $1 | jq '.features | length') - 1)
     for i in $(seq 0 $feature_count); do
-    echo -e $(cat .pmd | jq -r '.features['$i'] | "\(.id)\t\\t\\t\(."short hand")\t\\t\\t\\t\(.name)\t\\t\\t\\t\(."src location")"')
+    echo -e $(cat $1 | jq -r '.features['$i'] | "\(.id)\t\\t\\t\(."short hand")\t\\t\\t\\t\(.name)\t\\t\\t\\t\(."src location")"')
     done
 }
 
@@ -105,18 +104,38 @@ function rename_f
     read -p "Enter the ID of the feature that you wish to rename: " feature_id
     feature_name=$(cat $1 | jq -r '.features[] | select( .id == '$feature_id' )."name"')
     read -p "Renaming $feature_name to :" new_feature_name
+
+    feature_location=$(cat $1 | jq -r '.features[] | select( .id == '$feature_id' )."src location"')
+    feature_new_location=$(dirname $feature_location)/$new_feature_name
+    echo "moving $feature_location to $feature_new_location..."
+    mv $feature_location $feature_new_location
+
     tmp=$(mktemp)
-    
+    jq -c '(.features[] | select(.id=='$feature_id')| ."src location") |= "'$feature_new_location'"' $1 > "$tmp" && mv "$tmp" $1
+    jq -c '(.features[] | select(.id=='$feature_id')| ."name") |= "'$new_feature_name'"' $1 > "$tmp" && mv "$tmp" $1
 }
 
 function rm_f 
 {
-    echo "Remove\n"
+    fileloc="${2%%.*}"
+    ls_f $1
+    read -p "Enter the ID of the feature that you wish to remove: " feature_id
+    feature_index=$(jq '.features | map(.id == '$feature_id') | index(true)' $1)
+    feature_name=$(jq '.features[] | select( .id == '$feature_id' )."name"' $1)
+    feature_location=$(jq '.features[] | select( .id == '$feature_id' )."src location"' $1)
+    read -p "Are you sure you wish to remove $feature_name and its contents: " yn
+    
+
+    tmp=$(mktemp)
+    jq 'del(.features[] | select(.id == '$feature_id'))' $1 > "$tmp" && mv "$tmp" $1
+    echo "Removing $feature_location..."
+    echo $1
+    rm -rf $fileloc/$feature_location
 }
 
 if [[ $1 == "add_f" ]]; then add_f $2 $3
 elif  [[ $1 == "ls_f" ]]; then ls_f $2
 elif  [[ $1 == "mv_f" ]]; then mv_f $2
 elif  [[ $1 == "rename_f" ]]; then rename_f $2 $3
-elif  [[ $1 == "rm_f" ]]; then rm_f
+elif  [[ $1 == "rm_f" ]]; then rm_f $2 $3
 fi

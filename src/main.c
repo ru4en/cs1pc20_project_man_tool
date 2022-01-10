@@ -100,6 +100,11 @@ int main(int argc, char ** argv) // main function takes in arguments
       sprintf(rename_f, "bash /lib/pm/feature rename_f %s", df_location);
       int init_status = system(rename_f);
       return 0;
+    }else if (strcmp(argv[2], "rm") == 0) {
+      char rm_f[256];
+      sprintf(rm_f, "bash /lib/pm/feature rm_f %s", df_location);
+      int init_status = system(rm_f);
+      return 0;
     } else {
       printf("%s Unknowned option '%s' for feature. add, mv and rm are the only options you can use... \n\n %s", ERROR, argv[2], help());
     } 
