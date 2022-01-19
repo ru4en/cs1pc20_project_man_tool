@@ -1,18 +1,18 @@
-# cs1pc20_pm
-Pm is a project Managment tool used to set up and manage programing projects.
+# Programming in C/C++ Project Manager
+
+Pm is a project management tool used to set up and manage programing projects.
 
 some of the features of pm are:
 
 - [x] Setting up a basic file structure for projects
-- [x] Abort if requested project/feature name already exists in parrent folder
-- [x] Initialise git repository
+- [x] Abort if requested project/feature name already exists in parent folder
+- [x] Initialize git repository
 - [x] Feature management ( add, ls, mv, rm, rename)
-- [x] Genarate tree diagram using plantuml
+- [x] Generate tree diagram using Plantuml
 - [ ] Time/workload estimate information for project/features
-- [ ] Genarate Gantt chart for features
-- [ ] Simple web application interface 
-- [ ] Multi-user Surport
-
+- [ ] Generate Gantt chart for features
+- [ ] Simple web application interface
+- [ ] Multi-user Support
 
 ## Installation
 
