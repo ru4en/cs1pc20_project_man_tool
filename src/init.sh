@@ -3,7 +3,6 @@ ERROR="\033[1;31m ERROR:\033[0m"
 WARNNING="\033[1;33m WARRNING:\033[0m"
 DEBUG="\033[44m ERROR:\033[0m"
 
-
 function create_dotfile
 {
     touch .pmd
@@ -25,6 +24,7 @@ function create_dotfile
   ],
   "Git Repo": "'$GITR'",
   "File Root": "'$fileloc'",
+  "tree": "",
   "users": [
     "'$author'"
   ],

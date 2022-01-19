@@ -28,7 +28,9 @@ install_pm () {
 
     # install dependensies 
     printf "$b_blue Installing jq, gcc... $off"
-    apt install jq build-essential &> /dev/null
+    apt update -y  &> /dev/null
+    apt install jq build-essential plantuml python3 python3-pip -y &> /dev/null
+    pip3 install flask
     is_successful $?
 
     # seting up directory for pm

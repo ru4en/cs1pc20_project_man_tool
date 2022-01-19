@@ -47,7 +47,7 @@ function add_f
 
     echo "Added $f_name to $src_location."
 
-    git_repo=$(cat $2 | jq -r '."Git Repo"')
+    git_repo=$(jq -r '."Git Repo"' $2)
     echo $git_repo
     if [ $git_repo != "n" ]; then
         while true; do
@@ -64,9 +64,9 @@ function add_f
 function ls_f
 {
     echo -e "\n\033[1;34mID\\t\\tShort Hand\\t\\tFeature Name\\t\\tFile Location \033[m"
-    feature_count=$(expr $(cat $1 | jq '.features | length') - 1)
+    feature_count=$(expr $(jq '.features | length' $1) - 1)
     for i in $(seq 0 $feature_count); do
-    echo -e $(cat $1 | jq -r '.features['$i'] | "\(.id)\t\\t\\t\(."short hand")\t\\t\\t\\t\(.name)\t\\t\\t\\t\(."src location")"')
+    echo -e $(jq -r '.features['$i'] | "\(.id)\t\\t\\t\(."short hand")\t\\t\\t\\t\(.name)\t\\t\\t\\t\(."src location")"' $1)
     done
 }
 
@@ -78,8 +78,8 @@ function mv_f
     while [[ true ]]; do
         read -p "What feature would you like to move?: " feature_1_id
         read -p "Where would you like to move it?: " feature_2_id
-        feature_1=$(cat $1 | jq -r '.features[] | select( .id == '$feature_1_id' )."src location"' 2>&1)
-        feature_2=$(cat $1 | jq -r '.features[] | select( .id == '$feature_2_id' )."src location"' 2>&1)
+        feature_1=$(jq -r '.features[] | select( .id == '$feature_1_id' )."src location"' $1 2>&1)
+        feature_2=$(jq -r '.features[] | select( .id == '$feature_2_id' )."src location"' $1 2>&1)
         if [ -d "$feature_1" ] && [ -d "$feature_2" ]; then 
         break
         else 
@@ -91,7 +91,7 @@ function mv_f
 
     tmp=$(mktemp)
 
-    feature_1_jid=$(cat $1 | jq -r '.features[] | select( .id == '$feature_1_id' )."id"')
+    feature_1_jid=$(jq -r '.features[] | select( .id == '$feature_1_id' )."id"' $1)
     echo basename $feature_2
     fet_1_name=$(echo $(basename $feature_1))
     jq '.features['$feature_1_jid']."src location" = "'$feature_2'/'$fet_1_name'"' $1 > "$tmp" && mv "$tmp" $1
@@ -102,10 +102,10 @@ function rename_f
 {
     ls_f $1
     read -p "Enter the ID of the feature that you wish to rename: " feature_id
-    feature_name=$(cat $1 | jq -r '.features[] | select( .id == '$feature_id' )."name"')
+    feature_name=$(jq -r '.features[] | select( .id == '$feature_id' )."name"' $1)
     read -p "Renaming $feature_name to :" new_feature_name
 
-    feature_location=$(cat $1 | jq -r '.features[] | select( .id == '$feature_id' )."src location"')
+    feature_location=$(jq -r '.features[] | select( .id == '$feature_id' )."src location"' $1)
     feature_new_location=$(dirname $feature_location)/$new_feature_name
     echo "moving $feature_location to $feature_new_location..."
     mv $feature_location $feature_new_location

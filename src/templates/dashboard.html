@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app_name }}</title>
+</head>
+<body>
+    <h1>{{ app_name }}</h1>
+    <h2>
+        Author(s):
+        {% for author in authors %}
+        {{ author }}
+        {% endfor  %}
+    </h2>
+    {% if git_repo == 'n' %} <a href="#">Repository Unavailable</a>
+    {% else %} <a href="{{git_repo}}">Git Repository</a>
+    {% endif %}
+    <img src="{{ treeuml }}" alt="">
+</body>
+</html>

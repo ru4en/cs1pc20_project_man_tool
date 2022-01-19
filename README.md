@@ -21,12 +21,12 @@ Clone the repository from gitlab.
 
 cd into folder and run the installer
 `cd /cs1pc20_pm`
+
 `./setup.sh`
 
 ## Usage
 
 Run `pm` to see available options.
-
 
 usage: pm [ -v ] [ -h ]
 < command > [ < args > ]
