@@ -36,6 +36,9 @@ These are common pm commands used in various situations:
         init                    Create an generic layout for programing projects.
         feature [ < args > ]    Manage Features (Check bellow for functionality)
         make                    run makefile from anywhere in the project directory
+        tree                    produce image of the folder structure (docs/treeuml.png)
+        web                     view the project in a web application
+        user [ < args > ]       Manage users and acess controls
 
 Options that can be called to interact with features: pm feature [ < args > ]
 
@@ -46,3 +49,7 @@ Options that can be called to interact with features: pm feature [ < args > ]
 ## Remove pm
 
 `./setup.sh -i`
+
+# DEVS notes
+
+add date of start, end for features/projects. calcualte remaning time. use this to genarate a gantt chart using Plantuml. create a system so that a temorary copy of the project is saved to an area acessable to python-flask. show all info stored in json to web app. (possible allow to change in webUI). add a new functionality to have Multi-user. (add usr, rm user)
