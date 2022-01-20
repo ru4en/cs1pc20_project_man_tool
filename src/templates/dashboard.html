@@ -4,19 +4,87 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
     <title>{{ app_name }}</title>
+
+    <style>
+
+        body{
+            padding-bottom: 5rem;
+        }
+
+        .main {
+            width: 100%;
+            min-height: calc(100vh + 10rem);
+        }
+
+        .sidebar{
+    padding-right: 20px;
+    padding-top: 20px;
+    min-height: calc(100vh + 5rem);
+    width: 12rem;
+}
+    </style>
 </head>
-<body>
-    <h1>{{ app_name }}</h1>
-    <h2>
-        Author(s):
-        {% for author in authors %}
-        {{ author }}
-        {% endfor  %}
-    </h2>
-    {% if git_repo == 'n' %} <a href="#">Repository Unavailable</a>
-    {% else %} <a href="{{git_repo}}">Git Repository</a>
-    {% endif %}
-    <img src="{{ treeuml }}" alt="">
+<body class="bg-dark">
+    <div class="main row text-dark m-0">
+        <div class="sidebar col-auto col-md-3 d-inline-block col-xl-2 px-sm-2 px-0 bg-black text-center btn-group-vertical position-relative">
+            
+            <a href="" class="btn text-light w-100 m-1 p-3"><h1 class="bi bi-x-diamond-fill"></h1>PM</a>
+            <a href="" class="btn btn-secondary w-100 m-1"><i class="bi bi-speedometer"></i> Dashboard</a>
+            <a href="" class="btn btn-secondary w-100 m-1"><i class="bi bi-kanban"></i> Kanban Board</a>
+            <a href="" class="btn btn-danger w-100 m-1"><i class="bi bi-x-square-fill"></i> Exit</a>
+        </div>
+        <div class="col">
+            <h2 class="text-white p-3">Project Infomation</h2>
+            <div class="card shadow border-0 border">
+                <div class="card-body">
+                    <p><b>Project_Name: </b> {{ app_name }}</p>
+                    <p><b>Author(s): </b>{% for author in authors %}{{ author }}{% endfor %}</p>
+                    {% if git_repo == 'n' %} <a class="btn btn-secondary disabled" href="#">Repository Unavailable</a>
+                    {% else %} <a class="btn btn-primary" href="{{git_repo}}">Git_Repository</a>
+                    {% endif %}
+                    <p><b>File Location: </b> {{ file_root }}</p>
+                    <p><b>Users: </b>{% for user in users %}{{ user }}{% endfor %}</p>
+                </div>
+            </div>
+            <h2 class="text-white p-3">Features</h2>
+            <div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4">               
+                {% for feature in features %}
+                <div class="col">
+                    <div class="card shadow border-0 border bg-black text-light" style="min-height: 15rem; max-height: 15rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><b></b>{{ feature.name }}</h5>
+                            <p class="card-text"><b>Short hand: </b>{{ feature.short_hand }}</p>
+                            <p class="card-text"><b>File location: </b>{{ feature.src_location }}</p>
+                            <p class="card-text ">{{ feature.summery }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <h2 class="text-white p-3">Tests</h2>
+            <div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4">               
+                {% for test in tests %}
+                <div class="col">
+                    <div class="card shadow border-0 border text-light {% if test.passed_failed == 'PASS' %} bg-success {% elif test.passed_failed == 'FAIL' %} bg-danger {% elif test.passed_failed == 'UNTESTED' %} bg-secondary {% else %} bg-dark {% endif %}" style="min-height: 15rem; max-height: 15rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><b></b>{{ test.objective }}</h5>
+                            <p class="card-text"><b>Test Result Note: </b>{{ test.results[-1] }}</p>
+                            <p class="card-text"><b>Result: </b>{{ test.passed_failed }}</p>
+                            <p class="card-text">{{ test.summery }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </body>
 </html>

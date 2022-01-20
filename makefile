@@ -24,5 +24,8 @@ all:
 	cp bin/pm /usr/bin/pm
 	cp src/init.sh /lib/pm/init
 	cp src/feature.sh /lib/pm/feature
+	cp src/test.sh /lib/pm/test
 	cp src/utls.sh /lib/pm/utls
+	cp -r src/templates /lib/pm/
+	cp src/webapp.py /lib/pm/webapp.py
 # rm -rf tests/bin/ tests/.pmd tests/docs/ tests/lib/ tests/src/ tests/tests tests/.git tests/README.md

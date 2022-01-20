@@ -80,7 +80,6 @@ int main(int argc, char ** argv) // main function takes in arguments
       printf("%s Project dotfile not detected, please try using init to initiate new project...\n\n%s", ERROR, help());
       return 1;
     }
-
     if (strcmp(argv[2], "ls") == 0) { // list features 
       char ls_f[256];
       sprintf(ls_f, "bash /lib/pm/feature ls_f %s", df_location); // string formating for bash command
@@ -108,13 +107,48 @@ int main(int argc, char ** argv) // main function takes in arguments
     } else {
       printf("%s Unknown option '%s' for feature. add, mv and rm are the only options you can use... \n\n %s", ERROR, argv[2], help());
     }
-
-  }else if (strcmp(argv[1], "tree") == 0) {
-      char tree[256];
-      sprintf(tree, "bash /lib/pm/utls tree %s", df_location);
-      int init_status = system(tree);
+    }
+    
+    
+    else if ((strcmp(argv[1], "test") == 0) & (argv[2] != NULL)) { // if user choses test and the next argv is not empty run the folling if statements 
+    
+    if (strcmp(df_location, "Not Found") == 0) // catch if test command run without inition.
+    {
+      printf("%s Project dotfile not detected, please try using init to initiate new project...\n\n%s", ERROR, help());
+      return 1;
+    }
+    if (strcmp(argv[2], "ls") == 0) { // list tests 
+      char ls_f[256];
+      sprintf(ls_f, "bash /lib/pm/test ls %s", df_location); // string formating for bash command
+      int init_status = system(ls_f); // run ^^ in terminal 
       return 0;
-      }else if (argv[1][0] == '-') // test argument only to be used during devolvement. REMOVE BEFORE SUBMITION
+    } else if ((strcmp(argv[2], "add") == 0)) { // add new test
+      char add_f[256];
+      sprintf(add_f, "bash /lib/pm/test add %s", df_location);
+      int init_status = system(add_f);
+    }else if (strcmp(argv[2], "rm") == 0) {  // remove test
+      char rm_f[256];
+      sprintf(rm_f, "bash /lib/pm/test rm %s", df_location);
+      int init_status = system(rm_f);
+      return 0;
+    } else {
+      printf("%s Unknown option '%s' for test. ls, add or rm are the only options you can use... \n\n %s", ERROR, argv[2], help());
+    }
+  }
+
+
+
+  else if (strcmp(argv[1], "tree") == 0) {
+    char tree[256];
+    sprintf(tree, "bash /lib/pm/utls tree %s", df_location);
+    int init_status = system(tree);
+    return 0;
+  }else if (strcmp(argv[1], "web") == 0) {
+    char tree[256];
+    sprintf(tree, "bash /lib/pm/utls web %s", df_location);
+    int init_status = system(tree);
+    return 0;
+  }else if (argv[1][0] == '-') // test argument only to be used during devolvement. REMOVE BEFORE SUBMITION
   {
     switch (argv[1][1]) { // switch statements for -h and -v
     case ('h'): // -h is for help 
@@ -130,7 +164,6 @@ int main(int argc, char ** argv) // main function takes in arguments
       break;
     }
   }
-
   else {
     printf(help());
     return 1;

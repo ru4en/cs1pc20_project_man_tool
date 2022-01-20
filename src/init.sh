@@ -18,13 +18,12 @@ function create_dotfile
     done
 
     echo '{
-  "Project Name": "'$project_name'",
+  "Project_Name": "'$project_name'",
   "Author(s)": [
     "'$author'"
   ],
-  "Git Repo": "'$GITR'",
-  "File Root": "'$fileloc'",
-  "tree": "",
+  "Git_Repo": "'$GITR'",
+  "File_Root": "'$fileloc'",
   "users": [
     "'$author'"
   ],
@@ -32,19 +31,17 @@ function create_dotfile
     {
       "id": 0,
       "name": "main",
-      "short hand": "main",
-      "src location": "src/main",
+      "short_hand": "main",
+      "src_location": "src/main",
       "summery": "This is the main diroctory"
     }
   ],
   "tests": [
     {
       "id": 1,
-      "name": "test1",
-      "short hand": "T1",
-      "summery": "First test",
-      "result": "Test if pm sucessfuly inicilised",
-      "pass fail": true
+      "objective": "Test if pm sucessfuly inicilised",
+      "results": ["PM has sucessfuly inicilised."],
+      "passed_failed": "PASS"
     }
   ]
 }' | jq > .pmd
