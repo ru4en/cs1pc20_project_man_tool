@@ -52,6 +52,7 @@ install_pm () {
     printf "$b_blue Copying Libraries... $off"
     cp src/init.sh /lib/pm/init &> /dev/null
     cp src/feature.sh /lib/pm/feature &> /dev/null
+    cp src/test.sh /lib/pm/test &> /dev/null
     is_successful $?
 
     # note for user

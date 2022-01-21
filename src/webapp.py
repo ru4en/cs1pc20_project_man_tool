@@ -12,8 +12,13 @@ with open(pmd) as json_file:
     pm_app = json.load(json_file)
 
 @app.route('/')
-def hello_world():
+def index():
     return render_template('dashboard.html', app_name=pm_app["Project_Name"], authors=pm_app["Author(s)"], git_repo=pm_app["Git_Repo"], file_root=pm_app["File_Root"], users=pm_app["users"], features=pm_app["features"], tests=pm_app["tests"] )
+
+@app.route('/gantt')
+def gantt():
+    return render_template('gantt-chart.html')
+
 
 @app.route('/uploads/<path:filename>')
 def pm_static_files(filename):

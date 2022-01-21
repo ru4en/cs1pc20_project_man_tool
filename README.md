@@ -9,10 +9,10 @@ some of the features of pm are:
 - [x] Initialize git repository
 - [x] Feature management ( add, ls, mv, rm, rename)
 - [x] Generate tree diagram using Plantuml
-- [ ] Time/workload estimate information for project/features
-- [ ] Generate Gantt chart for features
-- [ ] Simple web application interface
-- [ ] Multi-user Support
+- [x] Time/workload estimate information for project/features
+- [x] Generate Gantt chart for features
+- [x] Simple web application interface
+- [x] Multi-user Support
 
 ## Installation
 
@@ -38,7 +38,8 @@ These are common pm commands used in various situations:
         make                    run makefile from anywhere in the project directory
         tree                    produce image of the folder structure (docs/treeuml.png)
         web                     view the project in a web application
-        user [ < args > ]       Manage users and acess controls
+        user [ < args > ]       Manage users and access controls
+        gantt                   Generate gantt chart
 
 Options that can be called to interact with features: pm feature [ < args > ]
 

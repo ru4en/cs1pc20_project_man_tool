@@ -7,6 +7,9 @@
 
 void void_it() {} // chucks unwanted outputs to the emptness of void
 
+/*--------------------------------Search in parrent folder------------------------------------*/
+
+
 char * search_parent(char * find) // this function searches for .pmd files in the parrent folders
 {
   DIR * dir = opendir(".");
@@ -34,6 +37,9 @@ char * search_parent(char * find) // this function searches for .pmd files in th
   return "Not Found"; // if file not found return "Not Found"
 }
 
+
+/*--------------------------------Help------------------------------------*/
+
 char* help() // Help function to print out what the program can do
 {
   return "\
@@ -43,14 +49,19 @@ char* help() // Help function to print out what the program can do
 These are common pm commands used in various situations:\n\n\
 \tinit\t\t\tCreate an generic layout for programing projects.\n\
 \tfeature [<args>]\tManage Featues (Check bellow for functionality)\n\
+\ttest [<args>]\tManage Tests (Check bellow for functionality)\n\
 \tmake\t\t\trun makefile from anyware in the project directory\n\
-\ttree\t\t\tproduce image of the folder structure (docs/treeuml.png)\n\
+\tmake\t\t\trun makefile from anyware in the project directory\n\
+\tweb\t\t\tstart a web interface to view project details\n\
+\tgantt\t\t\tGenerate gantt chart\n\
 \n\
-Options that can be called to interact with features: pm feature [<args>]\n\n\
-\tadd\tadd a new feature\n\
-\tmv\tMove or rename a feature\n\
-\trm\tRemove a feature \n";
+Options that can be called to interact with features tests: pm feature [<args>] or pm test [<args>] \n\n\
+\tls\tlist all feature or tests\n\
+\tadd\tadd a new feature or tests\n\
+\tmv\tMove a feature and its contents from one folder into another\n\
+\trm\tRemove a feature or tests\n";
 }
+/*-----------------------------Main---------------------------------------*/
 
 int main(int argc, char ** argv) // main function takes in arguments
 {
@@ -62,7 +73,8 @@ int main(int argc, char ** argv) // main function takes in arguments
     printf(help());
     return 1;
   }
-  
+/*--------------------------------pm init------------------------------------*/
+
   else if (strcmp(argv[1], "init") == 0) // if any of the arguments are "init" do ...
   {
     if (strcmp(df_location, "Not Found") == 0) { // this is done to prevent problems with git and loging to config in general
@@ -73,6 +85,7 @@ int main(int argc, char ** argv) // main function takes in arguments
       printf("%s Existing project found in %s.\n", ERROR, df_location); // print error msg if project already exists
       return 1;
     }
+/*-----------------------------pm feature < xxxxx >-------------------------------------*/
   } else if ((strcmp(argv[1], "feature") == 0) & (argv[2] != NULL)) { // if user choses feature and the next argv is not empty run the folling if statements 
 
     if (strcmp(df_location, "Not Found") == 0) // catch if features run without inition.
@@ -109,6 +122,7 @@ int main(int argc, char ** argv) // main function takes in arguments
     }
     }
     
+/*-----------------------------pm test < xxxxx >-------------------------------------*/
     
     else if ((strcmp(argv[1], "test") == 0) & (argv[2] != NULL)) { // if user choses test and the next argv is not empty run the folling if statements 
     
@@ -136,19 +150,39 @@ int main(int argc, char ** argv) // main function takes in arguments
     }
   }
 
-
-
+/*-----------------------------pm tree-------------------------------------*/
   else if (strcmp(argv[1], "tree") == 0) {
     char tree[256];
     sprintf(tree, "bash /lib/pm/utls tree %s", df_location);
     int init_status = system(tree);
     return 0;
-  }else if (strcmp(argv[1], "web") == 0) {
+  }
+  
+/*-----------------------------pm web-------------------------------------*/
+  else if (strcmp(argv[1], "web") == 0) {
     char tree[256];
     sprintf(tree, "bash /lib/pm/utls web %s", df_location);
     int init_status = system(tree);
     return 0;
-  }else if (argv[1][0] == '-') // test argument only to be used during devolvement. REMOVE BEFORE SUBMITION
+  }
+/*-----------------------------user-------------------------------------*/
+    else if ((strcmp(argv[1], "addusr") == 0) & (argv[2] != NULL)) {
+    char adduser[256];
+    sprintf(adduser, "bash /lib/pm/utls addusr %s %s",argv[2], df_location);
+    int init_status = system(adduser);
+    return 0;
+  }
+  /*-----------------------------Gantt chart-------------------------------------*/
+    else if (strcmp(argv[1], "gantt") == 0) {
+    char gantt[256];
+    sprintf(gantt, "bash /lib/pm/utls gantt %s", df_location);
+    int init_status = system(gantt);
+    return 0;
+  }
+  
+/*-----------------------------Switch for -h and -v-------------------------------------*/
+  
+  else if (argv[1][0] == '-') // test argument only to be used during devolvement. REMOVE BEFORE SUBMITION
   {
     switch (argv[1][1]) { // switch statements for -h and -v
     case ('h'): // -h is for help 

@@ -1,0 +1,13 @@
+@startuml
+Project starts 2001-02-30
+[Requirement Gathering and analysis phase] starts 2001-03-01
+[Requirement Gathering and analysis phase] ends 2001-04-01
+[System Design phase] starts 2001-04-01
+[System Design phase] ends 2001-05-20
+[Implementation phase] starts 2001-06-30
+[Implementation phase] ends 2001-07-02
+[Deployment phase] starts 2001-08-30
+[Deployment phase] ends 2001-09-30
+[Maintenance phase] starts 2001-01-20
+[Maintenance phase] ends 2001-06-20
+@enduml

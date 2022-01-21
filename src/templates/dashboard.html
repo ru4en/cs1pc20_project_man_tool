@@ -15,43 +15,44 @@
 
     <style>
 
-        body{
-            padding-bottom: 5rem;
-        }
-
-        .main {
+        body, .main{
             width: 100%;
             min-height: calc(100vh + 10rem);
+            height: 100%;
         }
 
         .sidebar{
     padding-right: 20px;
     padding-top: 20px;
-    min-height: calc(100vh + 5rem);
+    min-height: 100vh;
+    height: auto;
     width: 12rem;
 }
     </style>
 </head>
 <body class="bg-dark">
     <div class="main row text-dark m-0">
-        <div class="sidebar col-auto col-md-3 d-inline-block col-xl-2 px-sm-2 px-0 bg-black text-center btn-group-vertical position-relative">
+        <div class="col sidebar col-auto col-md-3 d-inline-block col-xl-2 px-sm-2 px-0 bg-black text-center btn-group-vertical position-relative">
             
-            <a href="" class="btn text-light w-100 m-1 p-3"><h1 class="bi bi-x-diamond-fill"></h1>PM</a>
-            <a href="" class="btn btn-secondary w-100 m-1"><i class="bi bi-speedometer"></i> Dashboard</a>
-            <a href="" class="btn btn-secondary w-100 m-1"><i class="bi bi-kanban"></i> Kanban Board</a>
+            <a href="/" class="btn text-light w-100 m-1 p-3"><h1 class="bi bi-x-diamond-fill"></h1>PM</a>
+            <a href="/" class="btn btn-secondary w-100 m-1"><i class="bi bi-speedometer"></i> Dashboard</a>
+            <a href="/gantt" class="btn btn-secondary w-100 m-1"><i class="bi bi-kanban"></i> Gantt Chart</a>
             <a href="" class="btn btn-danger w-100 m-1"><i class="bi bi-x-square-fill"></i> Exit</a>
         </div>
-        <div class="col">
-            <h2 class="text-white p-3">Project Infomation</h2>
+        <div class="col p-5">
+            <h2 class="text-white p-3">Project Information</h2>
             <div class="card shadow border-0 border">
                 <div class="card-body">
                     <p><b>Project_Name: </b> {{ app_name }}</p>
-                    <p><b>Author(s): </b>{% for author in authors %}{{ author }}{% endfor %}</p>
+                    <p><b>Author(s): </b>{% for author in authors %}{{ author}}, {% if loop.last %}{% endif %}{% endfor %}</p>
                     {% if git_repo == 'n' %} <a class="btn btn-secondary disabled" href="#">Repository Unavailable</a>
                     {% else %} <a class="btn btn-primary" href="{{git_repo}}">Git_Repository</a>
                     {% endif %}
                     <p><b>File Location: </b> {{ file_root }}</p>
-                    <p><b>Users: </b>{% for user in users %}{{ user }}{% endfor %}</p>
+                    <p><b>Users: </b>{% for user in users %}{{ user }}, {% if loop.last %}{% endif %}{% endfor %}</p>
+                    <p><b>Folder Structure:</b></p>
+                    <img class="img-fluid " src="{{url_for('pm_static_files', filename='treeuml.png')}}" alt="">
+                    <img class="img-fluid " src="{{url_for('pm_static_files', filename='SDLCgantt.png')}}" alt="">
                 </div>
             </div>
             <h2 class="text-white p-3">Features</h2>
