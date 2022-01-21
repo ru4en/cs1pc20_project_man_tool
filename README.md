@@ -52,5 +52,9 @@ Options that can be called to interact with features: pm feature [ < args > ]
 `./setup.sh -i`
 
 # DEVS notes
-
+### How to improve
 add date of start, end for features/projects. calcualte remaning time. use this to genarate a gantt chart using Plantuml. create a system so that a temorary copy of the project is saved to an area acessable to python-flask. show all info stored in json to web app. (possible allow to change in webUI). add a new functionality to have Multi-user. (add usr, rm user)
+
+for the gantt chart system we could add a few more popular SDLC modles. 
+
+the start and end date could be stored in the config file.
